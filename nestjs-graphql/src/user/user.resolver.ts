@@ -1,7 +1,6 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {Args, Mutation, Query, Resolver, Subscription} from '@nestjs/graphql'
 import { User } from './user.model'
 import { UserService } from './user.service'
-import { UserArgs } from './user.args'
 import { UserInput } from './user.input'
 import { PubSub } from 'apollo-server-express'
 
@@ -34,9 +33,9 @@ export class UserResolver {
     return this.userService.remove(idx);
   }
 
-  @Subscription(returns => Recipe)
-  recipeAdded() {
-    return pubSub.asyncIterator('recipeAdded');
+  @Subscription(() => User)
+  userAdded() {
+    return pubSub.asyncIterator('userAdded');
   }
 
 }
