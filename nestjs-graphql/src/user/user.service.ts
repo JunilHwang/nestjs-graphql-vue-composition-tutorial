@@ -1,5 +1,6 @@
-import {Injectable} from "@nestjs/common";
+import { Injectable } from '@nestjs/common'
 import { User } from './user.model'
+import { UserInput } from './user.input'
 
 @Injectable()
 export class UserService {
@@ -9,7 +10,11 @@ export class UserService {
   async findAll (): Promise<User[]> {
     return Promise.resolve([])
   }
-  async create (userDetail: User): Promise<void> {}
+  async create (userInput: UserInput): Promise<User> {
+    return Promise.resolve({} as any)
+  }
   async update (userDetail: User): Promise<void> {}
-  async delete (idx: number): Promise<void> {}
+  async delete (idx: number): Promise<boolean> {
+    return Promise.resolve(true)
+  }
 }
