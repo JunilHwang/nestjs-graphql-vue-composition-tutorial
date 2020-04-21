@@ -28,4 +28,15 @@ export class UserResolver {
     await pubSub.publish('userAdded', { userAdded: user })
     return user
   }
+
+  @Mutation(returns => Boolean)
+  async removeUser(@Args('idx') idx: number) {
+    return this.userService.remove(idx);
+  }
+
+  @Subscription(returns => Recipe)
+  recipeAdded() {
+    return pubSub.asyncIterator('recipeAdded');
+  }
+
 }

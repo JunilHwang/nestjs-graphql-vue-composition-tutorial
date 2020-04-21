@@ -14,7 +14,7 @@ export class UserService {
     return Promise.resolve({} as any)
   }
   async update (userDetail: User): Promise<void> {}
-  async delete (idx: number): Promise<boolean> {
+  async remove (idx: number): Promise<boolean> {
     return Promise.resolve(true)
   }
 }
