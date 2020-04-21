@@ -1,4 +1,4 @@
-import {Args, Mutation, Query, Resolver, Subscription} from '@nestjs/graphql'
+import {Args, Int, Mutation, Query, Resolver, Subscription} from '@nestjs/graphql'
 import { User } from './user.model'
 import { UserService } from './user.service'
 import { UserInput } from './user.input'
@@ -12,7 +12,9 @@ export class UserResolver {
   constructor (private readonly userService: UserService) {}
 
   @Query(() => User)
-  async user (@Args('idx') idx: number): Promise<User> {
+  async user (
+    @Args('idx', { type: () => Int }) idx: number
+  ): Promise<User> {
     return await this.userService.find(idx)
   }
 
@@ -29,8 +31,10 @@ export class UserResolver {
   }
 
   @Mutation(returns => Boolean)
-  async removeUser(@Args('idx') idx: number) {
-    return this.userService.remove(idx);
+  async removeUser(
+    @Args('idx', { type: () => Int }) idx: number
+  ): Promise<true> {
+    return await this.userService.remove(idx);
   }
 
   @Subscription(() => User)
