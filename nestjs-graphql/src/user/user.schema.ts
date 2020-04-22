@@ -7,7 +7,7 @@ export const UserSchema = new Schema({
   createdAt: Date
 })
 
-export const UserModel = { name: 'User', schema: UserSchema }
+export const UserModel = { name: 'UserModel', schema: UserSchema }
 
 export interface UserInterface extends Document {
   readonly userId: string
