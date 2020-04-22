@@ -13,4 +13,7 @@ export class User {
 
   @Field()
   name: string
+
+  @Field()
+  createdAt: Date
 }
