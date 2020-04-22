@@ -4,6 +4,6 @@ const HOST = 'localhost',
       DBNAME = 'nestjs_graphql_tutorial'
 
 const uri = `mongodb://${HOST}:${PORT}/${DBNAME}`;
-const options = { useNewUrlParser: true }
+const options = { useNewUrlParser: true, useUnifiedTopology: true }
 
 export const MongoModule = MongooseModule.forRoot(uri, options)
