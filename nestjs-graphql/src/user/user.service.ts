@@ -20,6 +20,7 @@ export class UserService {
       user.id = id
       user.email = email
       user.name = name
+      user.createdAt = new Date()
       this.lastIdx += 1
       this.users.push(user)
       return Promise.resolve(user)
