@@ -1,0 +1,11 @@
+version: "3.2"
+
+services:
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGODB_DATABASE: nestjs_graphql_tutorial
+    container_name: nestjs_graphql_tutorial_monogo
+    ports:
+      - 27017:27017
