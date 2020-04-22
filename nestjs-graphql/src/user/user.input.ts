@@ -6,7 +6,7 @@ export class UserInput {
 
   @Field()
   @MaxLength(20)
-  id: string
+  userId: string
 
   @Field()
   @IsOptional()

@@ -6,6 +6,9 @@ export class User {
   id?: string
 
   @Field()
+  userId: string
+
+  @Field()
   email: string
 
   @Field()
