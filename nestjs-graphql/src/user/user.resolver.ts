@@ -13,9 +13,9 @@ export class UserResolver {
 
   @Query(() => User)
   async user (
-    @Args('idx', { type: () => Int }) idx: number
+    @Args('id', { type: () => String }) id: string
   ): Promise<User> {
-    return await this.userService.find(idx)
+    return await this.userService.find(id)
   }
 
   @Query(() => [User])
@@ -32,14 +32,14 @@ export class UserResolver {
 
   @Mutation(() => Boolean)
   async removeUser(
-    @Args('idx', { type: () => Int }) idx: number
+    @Args('id', { type: () => String }) id: string
   ): Promise<Boolean> {
-    return await this.userService.remove(idx);
+    return await this.userService.remove(id)
   }
 
   @Subscription(() => User)
   userAdded() {
-    return pubSub.asyncIterator('userAdded');
+    return pubSub.asyncIterator('userAdded')
   }
 
 }

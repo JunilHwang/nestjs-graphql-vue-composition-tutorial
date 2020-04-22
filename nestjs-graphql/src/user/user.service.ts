@@ -1,38 +1,27 @@
 import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
 import { User } from './user.model'
 import { UserInput } from './user.input'
+import { UserInterface, UserModel } from './user.schema'
 
 @Injectable()
 export class UserService {
-  private users: User[] = []
-  private lastIdx: number = 1
 
-  async find (idx: number): Promise<User> {
-    return Promise.resolve(this.users.find(v => v.idx === idx))
+  constructor (@InjectModel('UserModel') private readonly userModel: Model<UserInterface>) {}
+
+  async find (id: string): Promise<User> {
+    return await this.userModel.findById(id).exec()
   }
   async findAll (): Promise<User[]> {
-    return Promise.resolve(this.users)
+    return await this.userModel.find().exec()
   }
-  async create ({ id, email, name }: UserInput): Promise<User> {
-    try {
-      const user = new User()
-      user.idx = this.lastIdx
-      user.id = id
-      user.email = email
-      user.name = name
-      user.createdAt = new Date()
-      this.lastIdx += 1
-      this.users.push(user)
-      return Promise.resolve(user)
-    } catch (e) {
-      this.lastIdx -= 1
-    }
+  async create (userInput: UserInput): Promise<User> {
+    const user = new this.userModel({ ...userInput, createdAt: new Date() })
+    return user.save()
   }
-  async remove (idx: number): Promise<Boolean> {
-    const k = this.users.findIndex(v => v.idx === idx)
-    if (k === -1) return Promise.resolve(false)
-
-    this.users.splice(k, 1)
-    return Promise.resolve(true)
+  async remove (id: string): Promise<Boolean> {
+    await this.userModel.findByIdAndRemove(id).exec()
+    return true
   }
 }
