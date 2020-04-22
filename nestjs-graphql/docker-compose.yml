@@ -8,4 +8,4 @@ services:
       MONGODB_DATABASE: nestjs_graphql_tutorial
     container_name: nestjs_graphql_tutorial_monogo
     ports:
-      - 27017:27017
+      - 27018:27017
