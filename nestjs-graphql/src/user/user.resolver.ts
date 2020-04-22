@@ -23,14 +23,14 @@ export class UserResolver {
     return await this.userService.findAll()
   }
 
-  @Mutation()
+  @Mutation(() => User)
   async addUser(@Args('userInput') userInput: UserInput): Promise<User> {
     const user = await this.userService.create(userInput)
     await pubSub.publish('userAdded', { userAdded: user })
     return user
   }
 
-  @Mutation(returns => Boolean)
+  @Mutation(() => Boolean)
   async removeUser(
     @Args('idx', { type: () => Int }) idx: number
   ): Promise<Boolean> {
