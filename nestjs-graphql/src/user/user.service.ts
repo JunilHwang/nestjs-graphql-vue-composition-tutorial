@@ -13,7 +13,7 @@ export class UserService {
   async create (userInput: UserInput): Promise<User> {
     return Promise.resolve({} as any)
   }
-  async remove (idx: number): Promise<true> {
+  async remove (idx: number): Promise<Boolean> {
     return Promise.resolve(true)
   }
 }
