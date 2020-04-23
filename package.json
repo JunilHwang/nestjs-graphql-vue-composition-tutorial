@@ -1,4 +1,4 @@
 {
   "private": true,
-  "workspaces": ["nestjs-graphql"]
+  "workspaces": [ "nestjs-graphql", "vue-composition", "domain" ]
 }
