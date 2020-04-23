@@ -7,3 +7,11 @@ export interface Post {
   writer: User
   createdAt: Date
 }
+
+export interface PostVO {
+  id?: string
+  title: string
+  content: string
+  writer?: User
+  createdAt?: Date
+}
