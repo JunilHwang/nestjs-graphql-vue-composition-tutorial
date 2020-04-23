@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import UserStore from './user'
-import PostStore from './post'
+import userStore from './user'
+import postStore from './post'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
-  state: { UserStore, PostStore },
+  state: { },
   mutations: { },
   actions: { },
-  modules: { }
+  modules: { userStore, postStore }
 })
