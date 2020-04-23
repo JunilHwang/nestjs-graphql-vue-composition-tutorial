@@ -1,7 +1,7 @@
 <template>
   <main>
     <h2>게시물 작성</h2>
-    <el-form :model="postDetail">
+    <el-form :model="postDetail" @submit.native.prevent="addPost">
       <el-form-item label="제목" size="small">
         <el-input
           v-model="postDetail.title.value"
@@ -18,25 +18,37 @@
       </el-form-item>
       <el-form-item size="small" style="text-align: right;">
         <el-button type="default" @click="$router.back()">취소</el-button>
-        <el-button type="primary">전송</el-button>
+        <el-button native-type="submit" type="primary">전송</el-button>
       </el-form-item>
     </el-form>
   </main>
 </template>
 
 <script lang="ts">
-  import {defineComponent, reactive, toRefs} from '@vue/composition-api'
+  import {defineComponent, reactive, SetupContext, toRefs} from '@vue/composition-api'
 import { UnwrapRef } from '@vue/composition-api/dist/reactivity'
 import { PostVO } from 'domain/types'
 
-const postDetail: UnwrapRef<PostVO> = reactive({
-  title: '',
-  content: ''
-})
+const useAddPost = (context: SetupContext) => {
+
+  const postDetail: UnwrapRef<PostVO> = reactive({
+    title: '',
+    content: ''
+  })
+
+  const addPost = () => {
+    context.root.$store.dispatch('postStore/ADD_POST', postDetail)
+  }
+
+  return { postDetail, addPost }
+
+}
 
 export default defineComponent({
-  setup () {
+  setup (props, context) {
+    const { postDetail, addPost } = useAddPost(context)
     return {
+      addPost,
       postDetail: toRefs(postDetail)
     }
   }
