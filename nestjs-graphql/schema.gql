@@ -1,0 +1,34 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID
+  userId: String!
+  email: String!
+  name: String!
+  createdAt: Date!
+}
+
+"""Date Scalar Type"""
+scalar Date
+
+type Query {
+  user(id: String!): User!
+  users: [User!]!
+}
+
+type Mutation {
+  addUser(userInput: UserInput!): User!
+  removeUser(id: String!): Boolean!
+}
+
+input UserInput {
+  userId: String!
+  email: String
+  name: String!
+}
+
+type Subscription {
+  userAdded: User!
+}
