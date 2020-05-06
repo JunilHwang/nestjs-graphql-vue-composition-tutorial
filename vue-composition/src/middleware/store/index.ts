@@ -14,5 +14,6 @@ export const store = new Vuex.Store({
 })
 
 export const useStore = ({ root: { $store } }: SetupContext) => {
-  return { ...$store }
+  const { state, dispatch, commit } = $store
+  return { state, dispatch, commit }
 }

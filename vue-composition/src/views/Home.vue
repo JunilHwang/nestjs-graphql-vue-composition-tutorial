@@ -1,7 +1,7 @@
 <template>
   <main>
     <h2>게시물 목록</h2>
-    <el-table :data="list" v-if="list.length > 0">
+    <el-table :data="postList" v-if="postList.length > 0">
       <el-table-column prop="id" label="ID" header-align="center" />
       <el-table-column prop="title" label="제목" header-align="center" />
       <el-table-column prop="writer.name" label="작성자" header-align="center" />
@@ -17,14 +17,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, Ref, ref } from '@vue/composition-api'
+import { defineComponent, reactive, Ref, ref, SetupContext } from '@vue/composition-api'
 import { Post } from 'domain/types'
+import { useStore } from "@/middleware";
 
-const list: Ref<Post[]> = ref([ ])
+const usePostList = (context: SetupContext) => {
+  const { state } = useStore(context)
+  const postList: Ref<Post[]> = ref(state.postStore.postList)
+  return { postList }
+}
 
 export default defineComponent({
-  setup () {
-    return { list }
+  setup (props, context: SetupContext) {
+    const { postList } = usePostList(context)
+    return { postList }
   }
 })
 </script>
