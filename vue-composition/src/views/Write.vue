@@ -25,11 +25,14 @@
 </template>
 
 <script lang="ts">
-  import {defineComponent, reactive, SetupContext, toRefs} from '@vue/composition-api'
+import { defineComponent, reactive, SetupContext, toRefs } from '@vue/composition-api'
 import { UnwrapRef } from '@vue/composition-api/dist/reactivity'
 import { PostVO } from 'domain/types'
+import { useStore } from '@/middleware'
 
 const useAddPost = (context: SetupContext) => {
+
+  const { dispatch } = useStore(context)
 
   const postDetail: UnwrapRef<PostVO> = reactive({
     title: '',
@@ -37,7 +40,7 @@ const useAddPost = (context: SetupContext) => {
   })
 
   const addPost = () => {
-    context.root.$store.dispatch('postStore/ADD_POST', postDetail)
+    dispatch('postStore/ADD_POST', postDetail)
   }
 
   return { postDetail, addPost }
