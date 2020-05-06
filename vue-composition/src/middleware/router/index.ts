@@ -15,6 +15,11 @@ const routes: Array<RouteConfig> = [
     name: 'Write',
     component: Views.Write
   },
+  {
+    path: '/view/:id',
+    name: 'View',
+    component: Views.View
+  },
 ]
 
 export const router = new VueRouter({

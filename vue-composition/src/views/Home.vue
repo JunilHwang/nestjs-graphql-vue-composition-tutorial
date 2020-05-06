@@ -3,7 +3,15 @@
     <h2>게시물 목록</h2>
     <el-table :data="postList" v-if="postList.length > 0">
       <el-table-column prop="id" label="ID" align="center" />
-      <el-table-column prop="title" label="제목" header-align="center" />
+      <el-table-column label="제목" header-align="center">
+        <template slot-scope="scope">
+          <el-link
+            :href="`/view/${scope.row.id}`"
+            @click.native.prevent="$router.push(`/view/${scope.row.id}`)"
+            v-html="scope.row.title"
+          />
+        </template>
+      </el-table-column>
       <el-table-column prop="writer.name" label="작성자" align="center" />
       <el-table-column label="작성일" align="center" :formatter="dateFormat" />
     </el-table>
