@@ -28,11 +28,13 @@
 import { defineComponent, reactive, SetupContext, toRefs } from '@vue/composition-api'
 import { UnwrapRef } from '@vue/composition-api/dist/reactivity'
 import { PostVO } from 'domain/types'
-import { useStore } from '@/middleware'
+import { useStore, useEUI, useRouter } from '@/uses'
 
 const useAddPost = (context: SetupContext) => {
 
   const { dispatch } = useStore(context)
+  const { $message } = useEUI(context)
+  const { router } = useRouter(context)
 
   const postDetail: UnwrapRef<PostVO> = reactive({
     title: '',
@@ -40,7 +42,13 @@ const useAddPost = (context: SetupContext) => {
   })
 
   const addPost = () => {
-    dispatch('postStore/ADD_POST', postDetail)
+    try {
+      dispatch('postStore/ADD_POST', postDetail)
+      $message({ type: 'success', message: '포스트가 추가되었습니다.' })
+      router.push('/')
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return { postDetail, addPost }

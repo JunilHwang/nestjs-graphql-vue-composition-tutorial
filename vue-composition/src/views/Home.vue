@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, Ref, ref, SetupContext } from '@vue/composition-api'
+import { defineComponent, Ref, ref, SetupContext } from '@vue/composition-api'
 import { Post } from 'domain/types'
-import { useStore } from "@/middleware"
+import { useStore } from '@/uses'
 const moment = require('moment')
 
 const usePostList = (context: SetupContext) => {
