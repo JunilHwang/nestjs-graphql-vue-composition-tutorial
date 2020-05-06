@@ -1,7 +1,18 @@
 <template>
   <main>
-    <h1>게시물 조회</h1>
     <el-card>
+      <header slot="header">
+        <h1 v-html="post.title" />
+        <span v-html="dateFormat(post.createdAt)" />
+      </header>
+      <div>
+        {{ post.content }}
+      </div>
+      <div style="text-align: right; margin-top: 20px">
+        <el-button type="default" icon="el-icon-s-fold" size="mini">목록</el-button>
+        <el-button type="primary" icon="el-icon-edit" size="mini">수정</el-button>
+        <el-button type="danger" icon="el-icon-delete" size="mini">삭제</el-button>
+      </div>
     </el-card>
   </main>
 </template>
@@ -18,10 +29,13 @@ const usePostView = (context: SetupContext) => {
   return { post }
 }
 
+const moment = require('moment')
+const dateFormat = (v: Date) => moment(v).format('YYYY-MM-DD HH:mm')
+
 export default defineComponent({
   setup (props, context: SetupContext) {
     const { post } = usePostView(context)
-    return { post }
+    return { post, dateFormat }
   }
 })
 </script>
