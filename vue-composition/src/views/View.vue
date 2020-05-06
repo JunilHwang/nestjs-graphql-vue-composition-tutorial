@@ -9,7 +9,7 @@
         {{ post.content }}
       </div>
       <div style="text-align: right; margin-top: 20px">
-        <el-button type="default" icon="el-icon-s-fold" size="mini">목록</el-button>
+        <el-button type="default" icon="el-icon-s-fold" size="mini" @click="$router.push('/')">목록</el-button>
         <el-button type="primary" icon="el-icon-edit" size="mini">수정</el-button>
         <el-button type="danger" icon="el-icon-delete" size="mini">삭제</el-button>
       </div>
