@@ -1,23 +1,15 @@
-import { Action, Module, MutationAction, VuexModule } from 'vuex-module-decorators'
-import { Post, PostVO, User } from 'domain/types'
-
-const getRandId = () => `${~~(Math.random() * 10000)}`
-
-const user: User = {
-  id: getRandId(),
-  userId: 'junil',
-  name: '황준일',
-  email: 'junil.h@kakao.com',
-  createdAt: new Date(),
-}
+import { Module, MutationAction, VuexModule } from 'vuex-module-decorators'
+import { Post, PostVO } from 'domain/types'
+import { getRandId } from '@/helper'
+import { user as writer } from '../user'
 
 const postList: Post[] = [
   {
     id: getRandId(),
     title: 'test',
     content: 'test content',
-    writer: user,
-    createdAt: new Date()
+    createdAt: new Date(),
+    writer
   }
 ]
 
@@ -33,8 +25,8 @@ export default class UserStore extends VuexModule {
     postList.push({
       ...postDetail,
       id: getRandId(),
-      writer: user,
-      createdAt: new Date()
+      createdAt: new Date(),
+      writer
     })
     return { postList }
   }
