@@ -1,4 +1,4 @@
-import { Module, MutationAction, VuexModule } from 'vuex-module-decorators'
+import {Action, Module, Mutation, MutationAction, VuexModule} from 'vuex-module-decorators'
 import { Post, PostVO } from 'domain/types'
 import { getRandId } from '@/helper'
 import { user as writer } from '../user'
@@ -20,20 +20,27 @@ export default class UserStore extends VuexModule {
 
   postList: Post[] = postList
 
-  @MutationAction
+  get posts (): Post[] {
+    return this.postList
+  }
+
+  @Mutation
+  SET_POST_LIST (postList: Post[]) {
+    this.postList = postList
+  }
+
+  @Action({ commit: 'SET_POST_LIST' })
   async ADD_POST (postDetail: PostVO) {
-    postList.push({
+    return [ ...this.posts, {
       ...postDetail,
       id: getRandId(),
       createdAt: new Date(),
       writer
-    })
-    return { postList }
+    } ]
   }
 
-  @MutationAction
+  @Action({ commit: 'SET_POST_LIST' })
   async DELETE_POST ({ id }: Post) {
-    const list = postList.filter(v => v.id !== id)
-    return { postList: list }
+    return this.posts.filter(v => v.id !== id)
   }
 }
