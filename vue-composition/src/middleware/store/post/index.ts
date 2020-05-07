@@ -7,7 +7,7 @@ const postList: Post[] = [
   {
     id: getRandId(),
     title: 'test',
-    content: 'test content',
+    content: 'test\ncontent',
     createdAt: new Date(),
     writer
   }
