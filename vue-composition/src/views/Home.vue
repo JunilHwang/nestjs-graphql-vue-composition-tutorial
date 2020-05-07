@@ -25,14 +25,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref, SetupContext } from '@vue/composition-api'
+  import {computed, defineComponent, Ref, ref, SetupContext} from '@vue/composition-api'
 import { Post } from 'domain/types'
 import { useStore } from '@/uses'
 const moment = require('moment')
 
 const usePostList = (context: SetupContext) => {
-  const { state } = useStore(context)
-  const postList: Ref<Post[]> = ref(state.postStore.postList)
+  const { state: { postStore } } = useStore(context)
+  const postList = computed(() => postStore.postList)
   return { postList }
 }
 
@@ -40,8 +40,7 @@ const dateFormat = ({ createdAt }: Post) => moment(createdAt).format('YYYY-MM-DD
 
 export default defineComponent({
   setup (props, context: SetupContext) {
-    const { postList } = usePostList(context)
-    return { postList, dateFormat }
+    return { ...usePostList(context), dateFormat }
   }
 })
 </script>

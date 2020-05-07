@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, SetupContext } from '@vue/composition-api'
+import { computed, defineComponent, ref, Ref, SetupContext } from '@vue/composition-api'
 import { useRouter, useStore, useEUI } from '@/uses'
 import { Post, User } from 'domain/types'
 
@@ -32,7 +32,7 @@ const useUser = (context: SetupContext) => {
 const usePost = (context: SetupContext) => {
   const { state: { postStore }, dispatch } = useStore(context)
   const { route: { params: { id } }, router } = useRouter(context)
-  const post: Ref<Post> = ref(postStore.postList.find((v: Post) => v.id === id))
+  const post = computed(() => postStore.postList.find((v: Post) => v.id === id));
   const { $message } = useEUI(context)
 
   const removing = async () => {
