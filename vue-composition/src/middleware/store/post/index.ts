@@ -30,4 +30,9 @@ export default class UserStore extends VuexModule {
     })
     return { postList }
   }
+
+  @MutationAction
+  async DELETE_POST ({ id }: Post) {
+    return { postList: postList.filter(v => v.id !== id) }
+  }
 }

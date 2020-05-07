@@ -37,7 +37,7 @@ const usePost = (context: SetupContext) => {
 
   const removing = async () => {
     try {
-      dispatch('postStore/remove', post.value)
+      dispatch('postStore/DELETE_POST', post.value)
       $message({ type: 'success', message: '포스트가 삭제되었습니다.' })
       router.push('/')
     } catch (e) {
